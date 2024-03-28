@@ -1,0 +1,15 @@
+image: alpine/edge
+packages:
+  - rust
+  - cargo
+sources:
+  - https://git.sr.ht/~cdv/scfg-rs
+tasks:
+  - build: |
+      cd scfg-rs
+      cargo test
+      cargo test --features 'preserve_order'
+triggers:
+  - action: email
+    to: chris@vittal.dev
+    condition: failure
